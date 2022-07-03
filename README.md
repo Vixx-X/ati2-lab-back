@@ -3,6 +3,7 @@
 Installation tested on Ubuntu 20.04.1 LTS.
 
 ## Table of contents
+
 - [dev enviroments](#dev-env)
   - [docker](#docker)
   - [virtualenv](#virtualenv)
@@ -30,12 +31,13 @@ Make sure you have installed python, docker and docker-compose, and then.
 Run this script in the root of this repo (it will download, install and start every component, and will show you the url you can visit to see the results of your page).
 
 ```shell
-python3 dev
+docker-compose up
 ```
+
 Run this, if you want to terminate all instance for dev.
 
 ```shell
-python3 dev --stop
+docker-compose down
 ```
 
 This form of developing is a little bit slow and error prone (you will be doing reset of the enviroments when the is a fatal error), so take that into account.
@@ -111,7 +113,6 @@ python manage.py graph_models
 Config settings are in the file `project/project/settings/development.py`
 
 [Find out more about graph_models][graph-models]
-
 
 ## Testing <a name="testing"></a>
 
