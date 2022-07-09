@@ -76,6 +76,8 @@ INSTALLED_APPS = [
 
     # our apps
     'back.apps.user.apps.UserConfig',
+    'back.apps.client.apps.ClientConfig',
+    'back.apps.business.apps.BusinessConfig',
 
     ## 3rd parties ##
     'django_filters',

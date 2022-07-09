@@ -71,6 +71,20 @@ urlpatterns = (
                 ("back.apps.user.urls", "back.apps.user"), namespace="user"
             ),
         ),
+        # client
+        path(
+            "",
+            include(
+                ("back.apps.client.urls", "back.apps.client"), namespace="client"
+            ),
+        ),
+        # business
+        path(
+            "",
+            include(
+                ("back.apps.business.urls", "back.apps.business"), namespace="business"
+            ),
+        ),
         # docs
         path("docs/", include(docs_urls)),
         # misc

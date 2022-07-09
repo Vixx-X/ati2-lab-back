@@ -1,4 +1,3 @@
-from django.core import validators
 from django.db import models
 from django.conf import settings
 from django.contrib.auth.models import AbstractUser
@@ -18,15 +17,9 @@ class User(AbstractUser):
         },
     )
 
-    document_id = models.CharField(
-        _("document id (cedula/rif)"),
-        max_length=15,
-        validators=[
-            validators.RegexValidator(
-                regex=r"^[eEvVjJ]\d+$",
-                message=_("your document id is not well formatted"),
-            ),
-        ],
+    charge = models.CharField(
+        _("charge"),
+        max_length=255,
     )
 
     def get_full_name(self):
@@ -40,17 +33,6 @@ class User(AbstractUser):
     def get_short_name(self):
         # Returns the short name for the user.
         return self.first_name
-
-    def get_pretty_document(self):
-        # Returns document_id prettier
-        document_id = str(self.document_id)
-        letter = document_id[:1].upper()
-        number = document_id[1:]
-        return f"{letter}-{number}"
-
-    @property
-    def document(self):
-        return self.get_pretty_document()
 
 
 class EmailDevice(BaseEmailDevice):

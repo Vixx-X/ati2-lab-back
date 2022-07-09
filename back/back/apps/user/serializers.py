@@ -26,8 +26,6 @@ class UserProfileSerializer(serializers.ModelSerializer):
         fields = [
             "email",
             "username",
-            "document_id",
-            "type",
             "first_name",
             "last_name",
         ]
@@ -232,8 +230,6 @@ class RegisterUserSerializer(UserProfileSerializer):
             "username": data["username"],
             "password": data["password1"],
             "email": data["email"],
-            "document_id": data["document_id"],
-            "type": data["type"],
             "first_name": data["first_name"],
             "last_name": data["last_name"],
         }
@@ -244,5 +240,4 @@ class RegisterUserSerializer(UserProfileSerializer):
         fields = UserProfileSerializer.Meta.fields + [
             "password1",
             "password2",
-            "account_type",
         ]

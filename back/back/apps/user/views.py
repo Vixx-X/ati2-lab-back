@@ -15,7 +15,6 @@ from django.utils.translation import gettext_lazy as _
 from drf_spectacular.utils import extend_schema, inline_serializer
 
 from django_otp import devices_for_user
-from rest_framework.views import APIView
 
 from .serializers import (
     UserSerializer,
@@ -74,6 +73,7 @@ class PasswordResetConfirmView(generics.GenericAPIView):
 
     # drf-spectacular will not call get_serializer if is not overrided
     def get_serializer(self, *args, **kwargs):
+        self.object = None # Error in get_serializer
         return super().get_serializer(*args, **kwargs)
 
     def get_object(self):

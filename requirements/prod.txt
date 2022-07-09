@@ -31,3 +31,7 @@ django-cors-headers==3.11.0
 
 # filter
 django-filter==21.1
+
+# phone field
+django-phonenumber-field==5.2.0
+phonenumbers==8.12.51
