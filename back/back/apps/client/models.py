@@ -51,7 +51,13 @@ class Client(CommonClient):
         limit_choices_to=limit,
     )
 
-    object_id = models.PositiveIntegerField()
+    def number():
+        count = Client.objects.count()
+        if count is None:
+            return 1
+        return count + 1
+
+    object_id = models.PositiveIntegerField(default=number)
 
     content_object = GenericForeignKey(
         'content_type',

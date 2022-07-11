@@ -16,6 +16,9 @@ from pathlib import Path
 import environ
 from django.utils.translation import gettext_lazy as _
 
+# Build paths inside the project like this: BASE_DIR / ...
+BASE_DIR = Path(__file__).resolve().parent.parent.parent
+
 # reading .env file
 env = environ.Env()
 environ.Env.read_env()
@@ -26,9 +29,6 @@ GRAPH_MODELS = {
     "output": "project_visualized.png",
     "pydot": True,
 }
-
-# Build paths inside the project like this: BASE_DIR / ...
-BASE_DIR = Path(__file__).resolve().parent.parent.parent
 
 # Quick-start settings
 # See https://docs.djangoproject.com/en/4.0/howto/deployment/checklist/
