@@ -1,5 +1,4 @@
 from rest_framework import viewsets
-from rest_framework.permissions import IsAuthenticatedOrReadOnly
 
 from .serializers import CountrySerializer, ClientSerializer, ParticularClientSerializer
 
@@ -19,7 +18,6 @@ class ParticularClientViewSet(viewsets.ModelViewSet):
     """
     Entrypoint for particular clients
     """
-    permission_classes = (IsAuthenticatedOrReadOnly,)
     queryset = ParticularClient.objects.all()
     serializer_class = ParticularClientSerializer
 
