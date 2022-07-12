@@ -257,6 +257,10 @@ class ParticularClient(models.Model):
 
     client = GenericRelation(Client)
 
+    @property
+    def get_client(self):
+        return self.client.first()
+
     class Meta:
         app_label = "client"
         db_table = "particular_clients"

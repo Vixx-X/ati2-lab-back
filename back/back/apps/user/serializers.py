@@ -20,6 +20,18 @@ class UserSerializer(serializers.ModelSerializer):
         fields = "__all__"
 
 
+class UserEmployeeSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = User
+        fields = [
+            'charge',
+            'first_name',
+            'last_name',
+            'email',
+        ]
+
+
+
 class UserProfileSerializer(serializers.ModelSerializer):
     class Meta:
         model = User
