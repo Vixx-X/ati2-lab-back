@@ -9,7 +9,8 @@ class CountryViewSet(viewsets.ModelViewSet):
     """
     Entrypoint for countries
     """
-    permission_classes = (IsAuthenticatedOrReadOnly,)
+    http_method_names = ['get', 'options', 'head']
+    lookup_field="iso_3166_1_a2"
     queryset = Country.objects.all()
     serializer_class = CountrySerializer
 
@@ -27,6 +28,6 @@ class ClientViewSet(viewsets.ModelViewSet):
     """
     Entrypoint for clients
     """
-    permission_classes = (IsAuthenticatedOrReadOnly,)
+    http_method_names = ['get', 'options', 'head']
     queryset = Client.objects.all()
     serializer_class = ClientSerializer

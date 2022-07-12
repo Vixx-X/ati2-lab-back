@@ -8,17 +8,13 @@ from .models import Client, ParticularClient, Social, Address, Country
 
 
 class CountrySerializer(serializers.ModelSerializer):
-    url = serializers.HyperlinkedIdentityField(
-        view_name="country-detail",
-    )
     class Meta:
         model = Country
         fields = "__all__"
 
 
 class AddressSerializer(serializers.ModelSerializer):
-    country = serializers.HyperlinkedRelatedField(
-        view_name="country-detail",
+    country = serializers.PrimaryKeyRelatedField(
         queryset=Country.objects.all(),
     )
 
@@ -30,22 +26,15 @@ class AddressSerializer(serializers.ModelSerializer):
             "city",
             "state",
             "country",
-            "client",
         ]
 
 
 class SocialSerializer(serializers.ModelSerializer):
-    client = serializers.PrimaryKeyRelatedField(
-        required=False,
-        queryset=Client.objects.all()
-    )
-
     class Meta:
         model = Social
         fields = [
             "name",
             "value",
-            "client",
         ]
 
 
@@ -72,35 +61,29 @@ class ClientSerializer(serializers.ModelSerializer):
         ]
 
     def create(self, validated_data):
-        ct = ContentType.objects.get(app_label='client', model='client')
         socials = validated_data.pop("socials")
         addresses = validated_data.pop("addresses")
-
-        validated_data["content_type"] = ct
 
         client = Client.objects.create(**validated_data)
         
         for social in socials:
-            social["client_id"] = client.id
-            social["client"] = client.id
+            social["client"] = client
 
-        for addres in addresses:
-            addres['client'] = client.object_id
+        for address in addresses:
+            address['client'] = client
 
-        self.socials = SocialSerializer(data=socials, many=True)
-        self.addresses = AddressSerializer(data=addresses, many=True)
+        self.socials = SocialSerializer(many=True)
+        self.addresses = AddressSerializer(many=True)
 
-        if self.addresses.is_valid():
-            self.addresses.create(self.addresses.validated_data)
+        self.addresses.create(validated_data=addresses)
 
-        if self.socials.is_valid():
-            self.socials.create(self.socials.validated_data)
+        self.socials.create(validated_data=socials)
 
         return client
 
 
 class ParticularClientSerializer(serializers.ModelSerializer):
-    client = ClientSerializer()
+    client = ClientSerializer(source='get_client')
     user = serializers.HiddenField(default=serializers.CurrentUserDefault())
 
     class Meta:
@@ -112,4 +95,17 @@ class ParticularClientSerializer(serializers.ModelSerializer):
             "whatsapp",
             "client",
         ]
+
+    def create(self, validated_data):
+        client_data = validated_data.pop('get_client', {})
+        client_data['socials'] = validated_data.pop('socials', [])
+
+        particular_client = ParticularClient.objects.create(**validated_data)
+
+        client_data['content_object'] = particular_client
+
+        self.client = ClientSerializer()
+        self.client.create(validated_data=client_data)
+
+        return particular_client
 

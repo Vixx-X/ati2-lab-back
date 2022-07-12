@@ -9,12 +9,12 @@ from back.apps.client.models import Client, CommonClient
 class CommonBusiness(models.Model):
 
     name = models.CharField(
-        _("favorite course"),
+        _("name"),
         max_length=255,
     )
 
     email = models.EmailField(
-        _("notification frecuency"),
+        _("email"),
     )
 
     class Meta:
@@ -35,6 +35,10 @@ class Business(CommonBusiness):
     )
 
     client = GenericRelation(Client)
+
+    @property
+    def get_client(self):
+        return self.client.first()
 
     class Meta:
         app_label = "business"
