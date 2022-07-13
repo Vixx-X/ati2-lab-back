@@ -3,8 +3,8 @@ from drf_spectacular.utils import extend_schema_field
 from rest_framework import serializers
 from django.utils.translation import gettext_lazy as _
 
+from back.core.serializers import GenericSerializer
 from .models import Client, ParticularClient, Social, Address, Country
-
 
 class CountrySerializer(serializers.ModelSerializer):
     img = serializers.SerializerMethodField()
@@ -19,7 +19,7 @@ class CountrySerializer(serializers.ModelSerializer):
         fields = "__all__"
 
 
-class AddressSerializer(serializers.ModelSerializer):
+class AddressSerializer(GenericSerializer):
     country = serializers.PrimaryKeyRelatedField(
         queryset=Country.objects.all(),
     )
@@ -35,7 +35,7 @@ class AddressSerializer(serializers.ModelSerializer):
         ]
 
 
-class SocialSerializer(serializers.ModelSerializer):
+class SocialSerializer(GenericSerializer):
     class Meta:
         model = Social
         fields = [
@@ -44,7 +44,7 @@ class SocialSerializer(serializers.ModelSerializer):
         ]
 
 
-class ClientSerializer(serializers.ModelSerializer):
+class ClientSerializer(GenericSerializer):
     addresses = AddressSerializer(many=True)
     socials = SocialSerializer(many=True)
     url = serializers.SerializerMethodField()
@@ -70,6 +70,7 @@ class ClientSerializer(serializers.ModelSerializer):
         ]
 
     def create(self, validated_data):
+        validated_data.pop('id', None)
         socials = validated_data.pop("socials")
         addresses = validated_data.pop("addresses")
 
@@ -91,13 +92,14 @@ class ClientSerializer(serializers.ModelSerializer):
         return client
 
 
-class ParticularClientSerializer(serializers.ModelSerializer):
+class ParticularClientSerializer(GenericSerializer):
     client = ClientSerializer(source='get_client')
     user = serializers.HiddenField(default=serializers.CurrentUserDefault())
 
     class Meta:
         model = ParticularClient
         fields = [
+            "id",
             "user",
             "type",
             "company",
@@ -105,6 +107,7 @@ class ParticularClientSerializer(serializers.ModelSerializer):
         ]
 
     def create(self, validated_data):
+        validated_data.pop('id', None)
         client_data = validated_data.pop('get_client', {})
         client_data['socials'] = validated_data.pop('socials', [])
 
@@ -116,4 +119,3 @@ class ParticularClientSerializer(serializers.ModelSerializer):
         self.client.create(validated_data=client_data)
 
         return particular_client
-
