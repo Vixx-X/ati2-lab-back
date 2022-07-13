@@ -22,7 +22,7 @@ class CommonBusiness(models.Model):
         max_length=255,
     )
 
-    tax_id = models.URLField(
+    website = models.URLField(
         _("website"),
         max_length=255,
     )
