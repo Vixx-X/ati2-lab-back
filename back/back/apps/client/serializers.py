@@ -2,6 +2,7 @@ from drf_spectacular.types import OpenApiTypes
 from drf_spectacular.utils import extend_schema_field
 from rest_framework import serializers
 from django.utils.translation import gettext_lazy as _
+from rest_framework.reverse import reverse
 
 from back.core.serializers import GenericSerializer
 from .models import Client, ParticularClient, Social, Address, Country
@@ -46,14 +47,14 @@ class SocialSerializer(GenericSerializer):
 
 class ClientSerializer(GenericSerializer):
     addresses = AddressSerializer(many=True)
-    socials = SocialSerializer(many=True)
+    socials = SocialSerializer(many=True, required=False)
     url = serializers.SerializerMethodField()
 
     @extend_schema_field(OpenApiTypes.URI)
     def get_url(self, obj):
         if obj.type == "business":
-            return "<WIP business url>"
-        return "<WIP particular client url>"
+            return reverse("api:business-detail", args=[obj.pk], request=self.context['request'])
+        return reverse("api:particularclient-detail", args=[obj.pk], request=self.context['request'])
 
     class Meta:
         model = Client
