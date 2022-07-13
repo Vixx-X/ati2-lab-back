@@ -58,7 +58,7 @@ OTP_EMAIL_SENDER = EMAIL_HOST_USER
 OTP_EMAIL_TOKEN_VALIDITY = 300
 
 # Phone settings
-PHONENUMBER_DEFAULT_REGION = env("PHONENUMBER_DEFAULT_REGION")
+PHONENUMBER_DEFAULT_REGION = env("PHONENUMBER_DEFAULT_REGION", default="VE")
 
 # simple-mail settings
 # https://github.com/VingtCinq/django-simple-mail

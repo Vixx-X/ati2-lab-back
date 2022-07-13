@@ -53,8 +53,8 @@ class ClientSerializer(GenericSerializer):
     @extend_schema_field(OpenApiTypes.URI)
     def get_url(self, obj):
         if obj.type == "business":
-            return reverse("api:business-detail", args=[obj.pk], request=self.context['request'])
-        return reverse("api:particularclient-detail", args=[obj.pk], request=self.context['request'])
+            return reverse("business:business-detail", args=[obj.pk], request=self.context['request'])
+        return reverse("client:particularclient-detail", args=[obj.pk], request=self.context['request'])
 
     class Meta:
         model = Client
