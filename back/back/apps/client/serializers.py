@@ -1,13 +1,19 @@
 from drf_spectacular.types import OpenApiTypes
 from drf_spectacular.utils import extend_schema_field
 from rest_framework import serializers
-from django.contrib.contenttypes.models import ContentType
 from django.utils.translation import gettext_lazy as _
 
 from .models import Client, ParticularClient, Social, Address, Country
 
 
 class CountrySerializer(serializers.ModelSerializer):
+    img = serializers.SerializerMethodField()
+
+    @extend_schema_field(OpenApiTypes.URI)
+    def get_img(self, obj):
+        code = obj.iso_3166_1_a2
+        return f'https://flagcdn.com/w20/{code}.png'
+
     class Meta:
         model = Country
         fields = "__all__"
@@ -45,7 +51,9 @@ class ClientSerializer(serializers.ModelSerializer):
 
     @extend_schema_field(OpenApiTypes.URI)
     def get_url(self, obj):
-        return "<WIP>"
+        if obj.type == "business":
+            return "<WIP business url>"
+        return "<WIP particular client url>"
 
     class Meta:
         model = Client
@@ -53,6 +61,7 @@ class ClientSerializer(serializers.ModelSerializer):
             "url",
             "type",
             "phone_number",
+            "whatsapp",
             "fav_course",
             "notification_frecuency",
             "offered_services",
@@ -65,7 +74,7 @@ class ClientSerializer(serializers.ModelSerializer):
         addresses = validated_data.pop("addresses")
 
         client = Client.objects.create(**validated_data)
-        
+
         for social in socials:
             social["client"] = client
 
@@ -92,7 +101,6 @@ class ParticularClientSerializer(serializers.ModelSerializer):
             "user",
             "type",
             "company",
-            "whatsapp",
             "client",
         ]
 

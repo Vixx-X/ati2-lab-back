@@ -17,6 +17,16 @@ class CommonBusiness(models.Model):
         _("email"),
     )
 
+    tax_id = models.CharField(
+        _("tax id"),
+        max_length=255,
+    )
+
+    tax_id = models.URLField(
+        _("website"),
+        max_length=255,
+    )
+
     class Meta:
         app_label = "business"
         db_table = "common_business_data"

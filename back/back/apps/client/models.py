@@ -51,17 +51,16 @@ class Client(CommonClient):
         limit_choices_to=limit,
     )
 
-    def number():
-        count = Client.objects.count()
-        if count is None:
-            return 1
-        return count + 1
-
-    object_id = models.PositiveIntegerField(default=number)
+    object_id = models.PositiveIntegerField()
 
     content_object = GenericForeignKey(
         'content_type',
         'object_id'
+    )
+
+    whatsapp = PhoneNumberField(
+        _("whatsapp"),
+        blank=True
     )
 
     class Meta:
@@ -248,11 +247,6 @@ class ParticularClient(models.Model):
     company = models.CharField(
         _("company"),
         max_length=255,
-    )
-
-    whatsapp = PhoneNumberField(
-        _("whatsapp"),
-        blank=True
     )
 
     client = GenericRelation(Client)
