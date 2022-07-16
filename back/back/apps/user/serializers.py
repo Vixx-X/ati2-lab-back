@@ -24,12 +24,11 @@ class UserEmployeeSerializer(serializers.ModelSerializer):
     class Meta:
         model = User
         fields = [
-            'charge',
-            'first_name',
-            'last_name',
-            'email',
+            "charge",
+            "first_name",
+            "last_name",
+            "email",
         ]
-
 
 
 class UserProfileSerializer(serializers.ModelSerializer):
@@ -95,7 +94,7 @@ class PasswordResetSerializer(serializers.Serializer):
         }
         mail = mails.ResetPasswordMail()
         mail.set_context(**extra_context)
-        mail.send([user.email]) 
+        mail.send([user.email])
 
 
 class PasswordSerializer(serializers.Serializer):

@@ -8,13 +8,14 @@ from back.apps.user.serializers import UserEmployeeSerializer
 from back.core.serializers import GenericSerializer
 from .models import Client, ParticularClient, Social, Address, Country
 
+
 class CountrySerializer(serializers.ModelSerializer):
     img = serializers.SerializerMethodField()
 
     @extend_schema_field(OpenApiTypes.URI)
     def get_img(self, obj):
         code = obj.iso_3166_1_a2
-        return f'https://flagcdn.com/w20/{code}.png'
+        return f"https://flagcdn.com/w20/{code}.png"
 
     class Meta:
         model = Country
@@ -54,8 +55,16 @@ class ClientSerializer(GenericSerializer):
     @extend_schema_field(OpenApiTypes.URI)
     def get_url(self, obj):
         if obj.type == "business":
-            return reverse("business:business-detail", args=[obj.pk], request=self.context['request'])
-        return reverse("client:particularclient-detail", args=[obj.pk], request=self.context['request'])
+            return reverse(
+                "business:business-detail",
+                args=[obj.pk],
+                request=self.context["request"],
+            )
+        return reverse(
+            "client:particularclient-detail",
+            args=[obj.pk],
+            request=self.context["request"],
+        )
 
     class Meta:
         model = Client
@@ -72,7 +81,7 @@ class ClientSerializer(GenericSerializer):
         ]
 
     def create(self, validated_data):
-        validated_data.pop('id', None)
+        validated_data.pop("id", None)
         socials = validated_data.pop("socials")
         addresses = validated_data.pop("addresses")
 
@@ -82,7 +91,7 @@ class ClientSerializer(GenericSerializer):
             social["client"] = client
 
         for address in addresses:
-            address['client'] = client
+            address["client"] = client
 
         self.socials = SocialSerializer(many=True)
         self.addresses = AddressSerializer(many=True)
@@ -95,7 +104,7 @@ class ClientSerializer(GenericSerializer):
 
 
 class ParticularClientSerializer(GenericSerializer):
-    client = ClientSerializer(source='get_client')
+    client = ClientSerializer(source="get_client")
     user = UserEmployeeSerializer()
 
     class Meta:
@@ -109,24 +118,23 @@ class ParticularClientSerializer(GenericSerializer):
         ]
 
     def create(self, validated_data):
-        validated_data.pop('id', None)
-        client_data = validated_data.pop('get_client', {})
-        client_data['socials'] = validated_data.pop('socials', [])
+        validated_data.pop("id", None)
+        client_data = validated_data.pop("get_client", {})
+        client_data["socials"] = validated_data.pop("socials", [])
 
-        user_data = validated_data.pop('user', {})
+        user_data = validated_data.pop("user", {})
         user_data["username"] = user_data["email"]
         user_data["password"] = "super random password"
 
         self.user = UserEmployeeSerializer()
         user = self.user.create(validated_data=user_data)
 
-        validated_data['user'] = user
+        validated_data["user"] = user
 
         particular_client = ParticularClient.objects.create(**validated_data)
-        client_data['content_object'] = particular_client
+        client_data["content_object"] = particular_client
 
         self.client = ClientSerializer()
         self.client.create(validated_data=client_data)
-
 
         return particular_client

@@ -27,6 +27,7 @@ class EmployeeFilter(filters.FilterSet):
         model = Employee
         fields = ["contract_modality"]
 
+
 class ProviderFilter(filters.FilterSet):
 
     country = filters.ModelChoiceFilter(

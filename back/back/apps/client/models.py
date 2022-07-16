@@ -11,10 +11,7 @@ from django.contrib.contenttypes.models import ContentType
 
 class CommonClient(models.Model):
 
-    phone_number = PhoneNumberField(
-        _("phone number"),
-        blank=True
-    )
+    phone_number = PhoneNumberField(_("phone number"), blank=True)
 
     fav_course = models.CharField(
         _("favorite course"),
@@ -43,7 +40,9 @@ class Client(CommonClient):
         max_length=255,
     )
 
-    limit = models.Q(app_label='business', model="Business") | models.Q(app_label="client", model="ParticularClient")
+    limit = models.Q(app_label="business", model="Business") | models.Q(
+        app_label="client", model="ParticularClient"
+    )
 
     content_type = models.ForeignKey(
         ContentType,
@@ -53,15 +52,9 @@ class Client(CommonClient):
 
     object_id = models.PositiveIntegerField()
 
-    content_object = GenericForeignKey(
-        'content_type',
-        'object_id'
-    )
+    content_object = GenericForeignKey("content_type", "object_id")
 
-    whatsapp = PhoneNumberField(
-        _("whatsapp"),
-        blank=True
-    )
+    whatsapp = PhoneNumberField(_("whatsapp"), blank=True)
 
     class Meta:
         app_label = "client"
@@ -74,7 +67,11 @@ class Client(CommonClient):
 
     @property
     def type(self) -> Union[Literal["business"], Literal["particular"]]:
-        return "particular" if isinstance(self.content_object, ParticularClient) else "business"
+        return (
+            "particular"
+            if isinstance(self.content_object, ParticularClient)
+            else "business"
+        )
 
 
 class Social(models.Model):
@@ -90,17 +87,17 @@ class Social(models.Model):
     )
 
     client = models.ForeignKey(
-        'client.CommonClient',
+        "client.CommonClient",
         on_delete=models.CASCADE,
         verbose_name=_("Client"),
         related_name="socials",
     )
 
     class Meta:
-        app_label = 'client'
+        app_label = "client"
         db_table = "socials"
-        verbose_name = _('Social')
-        verbose_name_plural = _('Socials')
+        verbose_name = _("Social")
+        verbose_name_plural = _("Socials")
 
     def __str__(self):
         return f"{self.name} : {self.value}"
@@ -113,27 +110,28 @@ class Country(models.Model):
     The field names are a bit awkward, but kept for backwards compatibility.
     pycountry's syntax of alpha2, alpha3, name and official_name seems sane.
     """
+
     iso_3166_1_a2 = models.CharField(
-        _('ISO 3166-1 alpha-2'),
+        _("ISO 3166-1 alpha-2"),
         max_length=2,
         primary_key=True,
     )
 
     iso_3166_1_a3 = models.CharField(
-        _('ISO 3166-1 alpha-3'),
+        _("ISO 3166-1 alpha-3"),
         max_length=3,
         blank=True,
     )
 
     iso_3166_1_numeric = models.CharField(
-        _('ISO 3166-1 numeric'),
+        _("ISO 3166-1 numeric"),
         blank=True,
         max_length=3,
     )
 
     #: The commonly used name; e.g. 'United Kingdom'
     printable_name = models.CharField(
-        _('Country name'),
+        _("Country name"),
         max_length=128,
         db_index=True,
     )
@@ -141,7 +139,7 @@ class Country(models.Model):
     #: The full official name of a country
     #: e.g. 'United Kingdom of Great Britain and Northern Ireland'
     name = models.CharField(
-        _('Official name'),
+        _("Official name"),
         max_length=128,
     )
 
@@ -149,15 +147,18 @@ class Country(models.Model):
         _("Display order"),
         default=0,
         db_index=True,
-        help_text=_('Higher the number, higher the country in the list.'),
+        help_text=_("Higher the number, higher the country in the list."),
     )
 
     class Meta:
-        app_label = 'client'
+        app_label = "client"
         db_table = "countries"
-        verbose_name = _('Country')
-        verbose_name_plural = _('Countries')
-        ordering = ('-display_order', 'printable_name',)
+        verbose_name = _("Country")
+        verbose_name_plural = _("Countries")
+        ordering = (
+            "-display_order",
+            "printable_name",
+        )
 
     def __str__(self):
         return self.printable_name or self.name
@@ -208,23 +209,23 @@ class Address(models.Model):
     )
 
     country = models.ForeignKey(
-        'client.Country',
+        "client.Country",
         on_delete=models.CASCADE,
         verbose_name=_("Country"),
     )
 
     client = models.ForeignKey(
-        'client.CommonClient',
+        "client.CommonClient",
         on_delete=models.CASCADE,
         verbose_name=_("Client"),
         related_name="addresses",
     )
 
     class Meta:
-        app_label = 'client'
+        app_label = "client"
         db_table = "addresses"
-        verbose_name = _('Address')
-        verbose_name_plural = _('Addresses')
+        verbose_name = _("Address")
+        verbose_name_plural = _("Addresses")
 
     def __str__(self):
         return f"address #{self.id}"
@@ -235,8 +236,8 @@ class ParticularClient(models.Model):
     user = models.ForeignKey(
         "user.User",
         on_delete=models.CASCADE,
-        related_name='addresses',
-        verbose_name=_("User")
+        related_name="addresses",
+        verbose_name=_("User"),
     )
 
     type = models.CharField(

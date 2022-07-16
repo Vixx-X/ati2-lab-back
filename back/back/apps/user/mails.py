@@ -48,6 +48,7 @@ class ResetPasswordMail(BaseSimpleMail):
 
     def set_test_context(self):
         from .models import User
+
         user = User.objects.first()
         url = "https://bank.vittorioadesso.com/"
         self.set_context(user, url)
@@ -63,6 +64,7 @@ class ResetUserMail(BaseSimpleMail):
 
     def set_test_context(self):
         from .models import User
+
         user = User.objects.first()
         self.set_context(user)
 

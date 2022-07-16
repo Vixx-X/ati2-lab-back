@@ -6,18 +6,20 @@ from django.db import migrations, models
 class Migration(migrations.Migration):
 
     dependencies = [
-        ('user', '0002_emaildevice'),
+        ("user", "0002_emaildevice"),
     ]
 
     operations = [
         migrations.RemoveField(
-            model_name='user',
-            name='document_id',
+            model_name="user",
+            name="document_id",
         ),
         migrations.AddField(
-            model_name='user',
-            name='charge',
-            field=models.CharField(default='ceo', max_length=255, verbose_name='charge'),
+            model_name="user",
+            name="charge",
+            field=models.CharField(
+                default="ceo", max_length=255, verbose_name="charge"
+            ),
             preserve_default=False,
         ),
     ]

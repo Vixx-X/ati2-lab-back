@@ -73,7 +73,7 @@ class PasswordResetConfirmView(generics.GenericAPIView):
 
     # drf-spectacular will not call get_serializer if is not overrided
     def get_serializer(self, *args, **kwargs):
-        self.object = None # Error in get_serializer
+        self.object = None  # Error in get_serializer
         return super().get_serializer(*args, **kwargs)
 
     def get_object(self):
@@ -154,7 +154,7 @@ class SendOTPView(generics.GenericAPIView):
         else:
             data["email"] = user.email
 
-        extra_context = {"user":user}  # this is de ctx of the OTP mail
+        extra_context = {"user": user}  # this is de ctx of the OTP mail
 
         data["device"] = device.persistent_id
 

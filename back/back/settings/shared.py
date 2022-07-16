@@ -126,19 +126,21 @@ ROOT_URLCONF = "back.urls"
 TEMPLATES = [
     {
         "BACKEND": "django.template.backends.django.DjangoTemplates",
-        "DIRS": [str(BASE_DIR / "templates"),],
+        "DIRS": [
+            str(BASE_DIR / "templates"),
+        ],
         "OPTIONS": {
             "context_processors": [
-            "django.contrib.auth.context_processors.auth",
-            "django.contrib.messages.context_processors.messages",
-            "django.template.context_processors.debug",
-            "django.template.context_processors.i18n",
-            "django.template.context_processors.media",
-            "django.template.context_processors.static",
-            "django.template.context_processors.csrf",
-            "django.template.context_processors.tz",
-            "django.template.context_processors.request",
-        ],
+                "django.contrib.auth.context_processors.auth",
+                "django.contrib.messages.context_processors.messages",
+                "django.template.context_processors.debug",
+                "django.template.context_processors.i18n",
+                "django.template.context_processors.media",
+                "django.template.context_processors.static",
+                "django.template.context_processors.csrf",
+                "django.template.context_processors.tz",
+                "django.template.context_processors.request",
+            ],
             "loaders": [
                 "django.template.loaders.filesystem.Loader",
                 "django.template.loaders.app_directories.Loader",

@@ -6,13 +6,13 @@ from django.db import migrations, models
 class Migration(migrations.Migration):
 
     dependencies = [
-        ('business', '0003_commonbusiness_tax_id_alter_commonbusiness_email_and_more'),
+        ("business", "0003_commonbusiness_tax_id_alter_commonbusiness_email_and_more"),
     ]
 
     operations = [
         migrations.AlterField(
-            model_name='commonbusiness',
-            name='tax_id',
-            field=models.URLField(max_length=255, verbose_name='website'),
+            model_name="commonbusiness",
+            name="tax_id",
+            field=models.URLField(max_length=255, verbose_name="website"),
         ),
     ]

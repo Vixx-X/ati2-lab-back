@@ -4,7 +4,9 @@ from django.contrib.contenttypes.fields import GenericRelation
 from django.db import models
 from django.utils.translation import gettext_lazy as _
 from django.core import validators
+from phonenumber_field.modelfields import PhoneNumberField
 from back.apps.client.models import Client, CommonClient
+
 
 class CommonBusiness(models.Model):
 
@@ -59,12 +61,13 @@ class Business(CommonBusiness):
     def __str__(self):
         return f"Business #{self.id}"
 
+
 class Employee(CommonClient):
 
     user = models.ForeignKey(
         "user.User",
         on_delete=models.CASCADE,
-        related_name='employee',
+        related_name="employee",
         verbose_name=_("User"),
     )
 
@@ -89,11 +92,13 @@ class Employee(CommonClient):
     )
 
     business = models.ForeignKey(
-        'business.CommonBusiness',
+        "business.CommonBusiness",
         on_delete=models.CASCADE,
         verbose_name=_("Business"),
         related_name="employees",
     )
+
+    local_phone_number = PhoneNumberField(_("local phone number"), blank=True)
 
     class Meta:
         app_label = "business"
@@ -155,9 +160,7 @@ class Provider(CommonClient):
     )
 
     business = models.ManyToManyField(
-        "business.Business",
-        related_name='providers',
-        verbose_name=_("Business")
+        "business.Business", related_name="providers", verbose_name=_("Business")
     )
 
     class Meta:

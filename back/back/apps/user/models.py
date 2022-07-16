@@ -63,7 +63,7 @@ class EmailDevice(BaseEmailDevice):
         """
         self.generate_token(valid_secs=settings.OTP_EMAIL_TOKEN_VALIDITY)
 
-        context = {'token': self.token, **(extra_context or {})}
+        context = {"token": self.token, **(extra_context or {})}
 
         mail = SendOTPMail()
         mail.set_context(**context)

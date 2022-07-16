@@ -67,16 +67,12 @@ urlpatterns = (
         # user
         path(
             "",
-            include(
-                ("back.apps.user.urls", "back.apps.user"), namespace="user"
-            ),
+            include(("back.apps.user.urls", "back.apps.user"), namespace="user"),
         ),
         # client
         path(
             "",
-            include(
-                ("back.apps.client.urls", "back.apps.client"), namespace="client"
-            ),
+            include(("back.apps.client.urls", "back.apps.client"), namespace="client"),
         ),
         # business
         path(

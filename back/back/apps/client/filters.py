@@ -2,6 +2,7 @@ from django_filters import rest_framework as filters
 
 from back.apps.client.models import Country, ParticularClient
 
+
 class ParticularClientFilter(filters.FilterSet):
 
     country = filters.ModelChoiceFilter(
@@ -11,4 +12,4 @@ class ParticularClientFilter(filters.FilterSet):
 
     class Meta:
         model = ParticularClient
-        fields = ['type']
+        fields = ["type"]
