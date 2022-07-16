@@ -100,6 +100,9 @@ class Employee(CommonClient):
 
     local_phone_number = PhoneNumberField(_("local phone number"), blank=True)
 
+    fav_course = None
+    notification_frecuency = None
+
     class Meta:
         app_label = "business"
         db_table = "employees"

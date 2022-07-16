@@ -89,16 +89,13 @@ class ClientSerializer(GenericSerializer):
 
         for social in socials:
             social["client"] = client
+        self.socials = SocialSerializer(many=True)
+        self.socials.create(validated_data=socials)
 
         for address in addresses:
             address["client"] = client
-
-        self.socials = SocialSerializer(many=True)
         self.addresses = AddressSerializer(many=True)
-
         self.addresses.create(validated_data=addresses)
-
-        self.socials.create(validated_data=socials)
 
         return client
 
@@ -120,15 +117,10 @@ class ParticularClientSerializer(GenericSerializer):
     def create(self, validated_data):
         validated_data.pop("id", None)
         client_data = validated_data.pop("get_client", {})
-        client_data["socials"] = validated_data.pop("socials", [])
 
         user_data = validated_data.pop("user", {})
-        user_data["username"] = user_data["email"]
-        user_data["password"] = "super random password"
-
         self.user = UserEmployeeSerializer()
         user = self.user.create(validated_data=user_data)
-
         validated_data["user"] = user
 
         particular_client = ParticularClient.objects.create(**validated_data)

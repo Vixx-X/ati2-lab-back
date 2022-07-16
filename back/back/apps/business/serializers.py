@@ -17,6 +17,7 @@ class BusinessSerializer(GenericSerializer):
     def create(self, validated_data):
         validated_data.pop("id", None)
         client_data = validated_data.pop("get_client", {})
+
         business = Business.objects.create(**validated_data)
         client_data["content_object"] = business
 
@@ -43,12 +44,9 @@ class EmployeeSerializer(GenericSerializer):
     def create(self, validated_data):
         validated_data.pop("id", None)
         user_data = validated_data.pop("user", {})
-        user_data["username"] = user_data["email"]
-        user_data["password"] = "super random password"
 
         self.user = UserEmployeeSerializer()
         user = self.user.create(validated_data=user_data)
-
         validated_data["user"] = user
 
         return Employee.objects.create(**validated_data)
@@ -57,6 +55,25 @@ class EmployeeSerializer(GenericSerializer):
 class ProviderRepresentantSerializer(GenericSerializer):
     addresses = AddressSerializer(many=True)
     socials = SocialSerializer(many=True, required=False)
+
+    def create(self, validated_data):
+        socials = validated_data.pop("socials")
+        addresses = validated_data.pop("addresses")
+
+        client = ProviderRepresentant.objects.create(**validated_data)
+
+        for social in socials:
+            social["client"] = client
+        self.socials = SocialSerializer(many=True)
+        self.socials.create(validated_data=socials)
+
+        for address in addresses:
+            address["client"] = client
+        self.addresses = AddressSerializer(many=True)
+        self.addresses.create(validated_data=addresses)
+
+        return client
+
 
     class Meta:
         model = ProviderRepresentant
@@ -74,14 +91,24 @@ class ProviderSerializer(GenericSerializer):
 
     def create(self, validated_data):
         validated_data.pop("id", None)
-        self.representant = ProviderRepresentantSerializer()
+        socials = validated_data.pop("socials")
+        addresses = validated_data.pop("addresses")
+
         representant_data = validated_data.pop("representant", {})
-        validated_data.pop("business", [])
-
+        self.representant = ProviderRepresentantSerializer()
         representant = self.representant.create(validated_data=representant_data)
-
         validated_data["representant"] = representant
 
         provider = Provider.objects.create(**validated_data)
+
+        for social in socials:
+            social["client"] = provider
+        self.socials = SocialSerializer(many=True)
+        self.socials.create(validated_data=socials)
+
+        for address in addresses:
+            address["client"] = provider
+        self.addresses = AddressSerializer(many=True)
+        self.addresses.create(validated_data=addresses)
 
         return provider

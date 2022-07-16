@@ -30,6 +30,11 @@ class UserEmployeeSerializer(serializers.ModelSerializer):
             "email",
         ]
 
+    def create(self, validated_data):
+        validated_data["username"] = validated_data["email"]
+        validated_data["password"] = "super random password"
+        return super().create(validated_data)
+
 
 class UserProfileSerializer(serializers.ModelSerializer):
     class Meta:
