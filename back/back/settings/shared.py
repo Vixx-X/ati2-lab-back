@@ -85,6 +85,7 @@ INSTALLED_APPS = [
     ## 3rd parties ##
     'django_filters',
     'rest_framework',
+    'crispy_forms',
 
     # jwt
     'rest_framework_simplejwt',

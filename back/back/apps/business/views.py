@@ -1,5 +1,7 @@
 from rest_framework import viewsets
 
+from back.apps.business.filters import BusinessFilter, EmployeeFilter, ProviderFilter
+
 from .serializers import BusinessSerializer, EmployeeSerializer, ProviderSerializer
 from .models import Business, Employee, Provider
 
@@ -11,6 +13,7 @@ class BusinessViewSet(viewsets.ModelViewSet):
 
     queryset = Business.objects.all()
     serializer_class = BusinessSerializer
+    filterset_class = BusinessFilter
 
 
 class EmployeeViewSet(viewsets.ModelViewSet):
@@ -20,6 +23,7 @@ class EmployeeViewSet(viewsets.ModelViewSet):
 
     queryset = Employee.objects.all()
     serializer_class = EmployeeSerializer
+    filterset_class = EmployeeFilter
 
 
 class ProviderViewSet(viewsets.ModelViewSet):
@@ -29,3 +33,4 @@ class ProviderViewSet(viewsets.ModelViewSet):
 
     queryset = Provider.objects.all()
     serializer_class = ProviderSerializer
+    filterset_class = ProviderFilter

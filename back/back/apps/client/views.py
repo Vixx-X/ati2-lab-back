@@ -1,5 +1,7 @@
 from rest_framework import viewsets
 
+from back.apps.client.filters import ParticularClientFilter
+
 from .serializers import CountrySerializer, ClientSerializer, ParticularClientSerializer
 
 from .models import Country, Client, ParticularClient
@@ -20,6 +22,7 @@ class ParticularClientViewSet(viewsets.ModelViewSet):
     """
     queryset = ParticularClient.objects.all()
     serializer_class = ParticularClientSerializer
+    filterset_class = ParticularClientFilter
 
 
 class ClientViewSet(viewsets.ModelViewSet):

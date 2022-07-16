@@ -3,6 +3,7 @@ from drf_spectacular.utils import extend_schema_field
 from rest_framework import serializers
 from django.utils.translation import gettext_lazy as _
 from rest_framework.reverse import reverse
+from back.apps.user.serializers import UserEmployeeSerializer
 
 from back.core.serializers import GenericSerializer
 from .models import Client, ParticularClient, Social, Address, Country
@@ -95,7 +96,7 @@ class ClientSerializer(GenericSerializer):
 
 class ParticularClientSerializer(GenericSerializer):
     client = ClientSerializer(source='get_client')
-    user = serializers.HiddenField(default=serializers.CurrentUserDefault())
+    user = UserEmployeeSerializer()
 
     class Meta:
         model = ParticularClient
@@ -112,11 +113,20 @@ class ParticularClientSerializer(GenericSerializer):
         client_data = validated_data.pop('get_client', {})
         client_data['socials'] = validated_data.pop('socials', [])
 
-        particular_client = ParticularClient.objects.create(**validated_data)
+        user_data = validated_data.pop('user', {})
+        user_data["username"] = user_data["email"]
+        user_data["password"] = "super random password"
 
+        self.user = UserEmployeeSerializer()
+        user = self.user.create(validated_data=user_data)
+
+        validated_data['user'] = user
+
+        particular_client = ParticularClient.objects.create(**validated_data)
         client_data['content_object'] = particular_client
 
         self.client = ClientSerializer()
         self.client.create(validated_data=client_data)
+
 
         return particular_client
