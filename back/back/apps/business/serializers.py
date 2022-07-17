@@ -17,7 +17,6 @@ class BusinessSerializer(GenericSerializer):
     client = ClientSerializer(source="get_client")
 
     def create(self, validated_data):
-        validated_data.pop("id", None)
         client_data = validated_data.pop("get_client", {})
 
         business = Business.objects.create(**validated_data)
@@ -60,14 +59,27 @@ class EmployeeSerializer(GenericSerializer):
         ]
 
     def create(self, validated_data):
-        validated_data.pop("id", None)
-        user_data = validated_data.pop("user", {})
+        socials = validated_data.pop("socials")
+        addresses = validated_data.pop("addresses")
 
+        user_data = validated_data.pop("user", {})
         self.user = UserEmployeeSerializer()
         user = self.user.create(validated_data=user_data)
         validated_data["user"] = user
 
-        return Employee.objects.create(**validated_data)
+        employee =  Employee.objects.create(**validated_data)
+
+        for social in socials:
+            social["client"] = employee
+        self.socials = SocialSerializer(many=True)
+        self.socials.create(validated_data=socials)
+
+        for address in addresses:
+            address["client"] = employee
+        self.addresses = AddressSerializer(many=True)
+        self.addresses.create(validated_data=addresses)
+
+        return employee
 
 
 class ProviderRepresentantSerializer(GenericSerializer):
@@ -108,7 +120,6 @@ class ProviderSerializer(GenericSerializer):
         fields = "__all__"
 
     def create(self, validated_data):
-        validated_data.pop("id", None)
         socials = validated_data.pop("socials")
         addresses = validated_data.pop("addresses")
 
