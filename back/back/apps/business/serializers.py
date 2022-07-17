@@ -104,7 +104,6 @@ class ProviderRepresentantSerializer(GenericSerializer):
 
         return client
 
-
     class Meta:
         model = ProviderRepresentant
         fields = "__all__"
@@ -122,13 +121,17 @@ class ProviderSerializer(GenericSerializer):
     def create(self, validated_data):
         socials = validated_data.pop("socials")
         addresses = validated_data.pop("addresses")
+        business = validated_data.pop("business")
 
         representant_data = validated_data.pop("representant", {})
         self.representant = ProviderRepresentantSerializer()
         representant = self.representant.create(validated_data=representant_data)
         validated_data["representant"] = representant
 
+        businesses = Business.objects.filter(pk__in=business)
+
         provider = Provider.objects.create(**validated_data)
+        provider.business.set(businesses)
 
         for social in socials:
             social["client"] = provider
@@ -141,3 +144,12 @@ class ProviderSerializer(GenericSerializer):
         self.addresses.create(validated_data=addresses)
 
         return provider
+
+    def update(self, instance, validated_data):
+        business = validated_data.pop("business", None)
+
+        if business:
+            businesses = Business.objects.filter(pk__in=business)
+            instance.business.set(businesses)
+
+        return super().update(instance, validated_data)
