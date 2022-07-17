@@ -1,3 +1,4 @@
+from typing import Union
 from django.utils.translation import gettext_lazy as _
 from rest_framework import serializers
 
@@ -39,7 +40,7 @@ class EmployeeSerializer(GenericSerializer):
     socials = SocialSerializer(many=True, required=False)
     business_name = serializers.SerializerMethodField()
 
-    def get_business_name(self, obj):
+    def get_business_name(self, obj) -> Union[str, None]:
         return obj.business and obj.business.name or None
 
     class Meta:
