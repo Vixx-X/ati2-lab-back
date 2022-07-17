@@ -1,0 +1,305 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
+# This file is distributed under the same license as the PACKAGE package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
+#
+#, fuzzy
+msgid ""
+msgstr ""
+"Project-Id-Version: PACKAGE VERSION\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2022-07-16 19:40-0400\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"Language-Team: LANGUAGE <LL@li.org>\n"
+"Language: \n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+#: back/apps/business/apps.py:8 back/apps/business/models.py:35
+#: back/apps/business/models.py:58
+msgid "business"
+msgstr "empresa"
+
+#: back/apps/business/models.py:14
+msgid "name"
+msgstr "nombre"
+
+#: back/apps/business/models.py:19
+msgid "email"
+msgstr "correo"
+
+#: back/apps/business/models.py:23
+msgid "tax id"
+msgstr "id tributario"
+
+#: back/apps/business/models.py:28
+msgid "website"
+msgstr "website"
+
+#: back/apps/business/models.py:36 back/apps/business/models.py:59
+msgid "businesses"
+msgstr "empresas"
+
+#: back/apps/business/models.py:45
+msgid "services"
+msgstr "servicios"
+
+#: back/apps/business/models.py:71 back/apps/client/models.py:240
+msgid "User"
+msgstr "Usuario"
+
+#: back/apps/business/models.py:75
+msgid "document id (cedula/rif)"
+msgstr "documento de identidad (cedula/rif)"
+
+#: back/apps/business/models.py:80
+msgid "your document id is not well formatted"
+msgstr "tu documento de identidad no posee un buen formato"
+
+#: back/apps/business/models.py:86
+msgid "contract modality"
+msgstr "modalidad de contratación"
+
+#: back/apps/business/models.py:91 back/apps/business/models.py:133
+msgid "business email"
+msgstr "correo empresarial"
+
+#: back/apps/business/models.py:97 back/apps/business/models.py:166
+msgid "Business"
+msgstr "Empresa"
+
+#: back/apps/business/models.py:101
+msgid "local phone number"
+msgstr "teléfono local"
+
+#: back/apps/business/models.py:109
+msgid "employee"
+msgstr "empleado"
+
+#: back/apps/business/models.py:110
+msgid "employees"
+msgstr "empleados"
+
+#: back/apps/business/models.py:119
+msgid "first name"
+msgstr "nombres"
+
+#: back/apps/business/models.py:124
+msgid "last name"
+msgstr "apellidos"
+
+#: back/apps/business/models.py:129 back/apps/business/models.py:157
+#: back/apps/client/models.py:22
+msgid "notification frecuency"
+msgstr "frecuencia de notificación"
+
+#: back/apps/business/models.py:142
+msgid "provider representant"
+msgstr "representante del proveedor"
+
+#: back/apps/business/models.py:143
+msgid "provider representants"
+msgstr "representantes del proveedor"
+
+#: back/apps/business/models.py:152 back/apps/client/models.py:17
+msgid "favorite course"
+msgstr "curso preferido"
+
+#: back/apps/business/models.py:172
+msgid "provider"
+msgstr "proveedor"
+
+#: back/apps/business/models.py:173
+msgid "providers"
+msgstr "proveedores"
+
+#: back/apps/client/apps.py:8 back/apps/client/models.py:29
+#: back/apps/client/models.py:62
+msgid "client"
+msgstr "cliente"
+
+#: back/apps/client/models.py:14
+msgid "phone number"
+msgstr "teléfono"
+
+#: back/apps/client/models.py:30 back/apps/client/models.py:63
+msgid "clients"
+msgstr "clientes"
+
+#: back/apps/client/models.py:39
+msgid "offered services"
+msgstr "servicios ofrecidos"
+
+#: back/apps/client/models.py:57
+msgid "whatsapp"
+msgstr "whatsapp"
+
+#: back/apps/client/models.py:80
+msgid "social name"
+msgstr "nombre de red social"
+
+#: back/apps/client/models.py:85
+msgid "social value"
+msgstr "url de red social"
+
+#: back/apps/client/models.py:92 back/apps/client/models.py:220
+msgid "Client"
+msgstr "Cliente"
+
+#: back/apps/client/models.py:99
+msgid "Social"
+msgstr "Red social"
+
+#: back/apps/client/models.py:100
+msgid "Socials"
+msgstr "Redes sociales"
+
+#: back/apps/client/models.py:115
+msgid "ISO 3166-1 alpha-2"
+msgstr ""
+
+#: back/apps/client/models.py:121
+msgid "ISO 3166-1 alpha-3"
+msgstr ""
+
+#: back/apps/client/models.py:127
+msgid "ISO 3166-1 numeric"
+msgstr ""
+
+#: back/apps/client/models.py:134
+msgid "Country name"
+msgstr "Nombre del país"
+
+#: back/apps/client/models.py:142
+msgid "Official name"
+msgstr "Nombre oficial"
+
+#: back/apps/client/models.py:147
+msgid "Display order"
+msgstr "Orden"
+
+#: back/apps/client/models.py:150
+msgid "Higher the number, higher the country in the list."
+msgstr "Más grande el número, arriba en la lista aparecerá el país."
+
+#: back/apps/client/models.py:156 back/apps/client/models.py:214
+msgid "Country"
+msgstr "País"
+
+#: back/apps/client/models.py:157
+msgid "Countries"
+msgstr "Paises"
+
+#: back/apps/client/models.py:189
+msgid "First line of address"
+msgstr "Primera línea de dirección"
+
+#: back/apps/client/models.py:194
+msgid "Second line of address"
+msgstr "Segunda línea de dirección"
+
+#: back/apps/client/models.py:200
+msgid "City"
+msgstr "Ciudad"
+
+#: back/apps/client/models.py:206
+msgid "State/County"
+msgstr "Estado/País"
+
+#: back/apps/client/models.py:227
+msgid "Address"
+msgstr "Dirección"
+
+#: back/apps/client/models.py:228
+msgid "Addresses"
+msgstr "Direcciones"
+
+#: back/apps/client/models.py:244
+msgid "type"
+msgstr "tipo"
+
+#: back/apps/client/models.py:249
+msgid "company"
+msgstr "compañia"
+
+#: back/apps/client/models.py:262
+msgid "particular client"
+msgstr "cliente particular"
+
+#: back/apps/client/models.py:263
+msgid "particular clients"
+msgstr "clientes particulares"
+
+#: back/apps/user/admin.py:22
+msgid "Personal info"
+msgstr "Información personal"
+
+#: back/apps/user/admin.py:26
+msgid "Permissions"
+msgstr "Permisos"
+
+#: back/apps/user/admin.py:37
+msgid "Important dates"
+msgstr "Fechas importantes"
+
+#: back/apps/user/apps.py:8
+msgid "user"
+msgstr "usuario"
+
+#: back/apps/user/models.py:13
+msgid "email address"
+msgstr "correo"
+
+#: back/apps/user/models.py:16
+msgid "A user with that username already exists."
+msgstr "Un usuario con ese username ya existe."
+
+#: back/apps/user/models.py:21
+msgid "charge"
+msgstr "cargo"
+
+#: back/apps/user/models.py:72
+msgid "sent by email"
+msgstr "enviado por correo"
+
+#: back/apps/user/serializers.py:119 back/apps/user/serializers.py:189
+msgid "The two password fields didn’t match."
+msgstr "Las dos contraseñas no coinciden."
+
+#: back/apps/user/serializers.py:154
+msgid "The token submitted is invalid."
+msgstr "El token enviado no es valido."
+
+#: back/apps/user/serializers.py:177
+msgid "The old password didn’t match."
+msgstr "La contraseña vieja no coincide."
+
+#: back/apps/user/serializers.py:209
+msgid "The email has not changed."
+msgstr "El correo no ha cambiado."
+
+#: back/apps/user/views.py:109
+msgid ""
+"Your password have been successfully changed. Please sign in with your new "
+"credentials."
+msgstr ""
+"Tu contraseña ha sido cambiada exitosamente. Por favor inicia sesión con tus"
+"nuevas credenciales."
+
+#: back/apps/user/views.py:145
+msgid "Please contact customer service"
+msgstr "Porfavor contacta servicio al cliente"
+
+#: back/apps/user/views.py:186
+msgid "Your password have been successfully changed."
+msgstr "Tu contraseña cambió con exito."
+
+#: back/apps/user/views.py:206
+msgid "Your email have been successfully changed."
+msgstr "Tu correo cambió con exito."
+
+#: back/apps/user/views.py:233
+msgid "You have successfully registered."
+msgstr "Te registraste correctamente."
