@@ -1,4 +1,5 @@
 from django.utils.translation import gettext_lazy as _
+from rest_framework import serializers
 
 from back.apps.client.serializers import (
     AddressSerializer,
@@ -36,6 +37,10 @@ class EmployeeSerializer(GenericSerializer):
     user = UserEmployeeSerializer()
     addresses = AddressSerializer(many=True)
     socials = SocialSerializer(many=True, required=False)
+    business_name = serializers.SerializerMethodField()
+
+    def get_business_name(self, obj):
+        return obj.business and obj.business.name or None
 
     class Meta:
         model = Employee
@@ -47,6 +52,7 @@ class EmployeeSerializer(GenericSerializer):
             "business_email",
             "local_phone_number",
             "business",
+            "business_name",
             "user",
             "addresses",
             "socials",
