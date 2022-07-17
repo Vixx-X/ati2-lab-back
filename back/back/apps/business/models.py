@@ -120,9 +120,9 @@ class ProviderRepresentant(CommonClient):
         max_length=255,
     )
 
-    last_name = models.CharField(
-        _("last name"),
-        max_length=255,
+    local_phone = PhoneNumberField(
+        _("phone number"), 
+        blank=True
     )
 
     personal_email = models.EmailField(
@@ -131,6 +131,11 @@ class ProviderRepresentant(CommonClient):
 
     business_email = models.EmailField(
         _("business_email"),
+    )
+
+    charge = models.CharField(
+        _("charge"),
+        max_length=255,
     )
 
     fav_course = None
@@ -147,14 +152,23 @@ class ProviderRepresentant(CommonClient):
 
 
 class Provider(CommonClient):
-
     name = models.CharField(
-        _("favorite course"),
+        _("name"),
         max_length=255,
     )
 
     email = models.EmailField(
-        _("notification frecuency"),
+        _("email"),
+    )
+
+    tax_id = models.CharField(
+        _("tax id"),
+        max_length=255,
+    )
+
+    website = models.URLField(
+        _("website"),
+        max_length=255,
     )
 
     representant = models.OneToOneField(

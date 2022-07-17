@@ -11,7 +11,6 @@ from back.apps.user.mails import SendOTPMail
 class User(AbstractUser):
     email = models.EmailField(
         _("email address"),
-        unique=True,
         error_messages={
             "unique": _("A user with that username already exists."),
         },
