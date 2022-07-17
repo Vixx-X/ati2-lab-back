@@ -39,7 +39,18 @@ class EmployeeSerializer(GenericSerializer):
 
     class Meta:
         model = Employee
-        fields = "__all__"
+        fields = [
+            "id",
+            "phone_number",
+            "document_id",
+            "contract_modality",
+            "business_email",
+            "local_phone_number",
+            "business",
+            "user",
+            "addresses",
+            "socials",
+        ]
 
     def create(self, validated_data):
         validated_data.pop("id", None)
