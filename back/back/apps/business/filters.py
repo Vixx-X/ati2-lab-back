@@ -13,7 +13,7 @@ class BusinessFilter(filters.FilterSet):
 
     class Meta:
         model = Business
-        fields = []
+        fields = ["name"]
 
 
 class EmployeeFilter(filters.FilterSet):
@@ -42,4 +42,4 @@ class ProviderFilter(filters.FilterSet):
 
     class Meta:
         model = Provider
-        fields = []
+        fields = ["name"]
