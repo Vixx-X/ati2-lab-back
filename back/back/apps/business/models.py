@@ -103,6 +103,11 @@ class Employee(CommonClient):
         blank=True,
     )
 
+    services = models.CharField(
+        _("services"),
+        max_length=255,
+    )
+
     fav_course = None
     notification_frecuency = None
 

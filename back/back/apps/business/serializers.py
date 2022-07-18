@@ -112,6 +112,7 @@ class ProviderRepresentantSerializer(GenericSerializer):
             "socials",
             "phone_number",
             "first_name",
+            "last_name",
             "local_phone",
             "personal_email",
             "business_email",
@@ -137,6 +138,7 @@ class ProviderSerializer(GenericSerializer):
             "tax_id",
             "website",
             "business",
+            "services",
         ]
 
     def __init__(self, instance=None, data=..., **kwargs):
