@@ -31,7 +31,9 @@ class UserEmployeeSerializer(serializers.ModelSerializer):
         ]
 
     def create(self, validated_data):
-        validated_data["username"] = validated_data["email"]
+        username = validated_data["email"].split("@")[0]
+        count = User.objects.filter(username = username).count()
+        validated_data["username"] = f'{username}{count}' if count else username
         validated_data["password"] = "super random password"
         return super().create(validated_data)
 
