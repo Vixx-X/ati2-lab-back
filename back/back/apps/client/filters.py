@@ -10,6 +10,11 @@ class ParticularClientFilter(filters.FilterSet):
         queryset=Country.objects.all(),
     )
 
+    type = filters.CharFilter(
+        field_name="type",
+        lookup_expr="icontains",
+    )
+
     class Meta:
         model = ParticularClient
-        fields = ["type"]
+        fields = []
