@@ -103,11 +103,6 @@ class Employee(CommonClient):
         blank=True,
     )
 
-    services = models.CharField(
-        _("services"),
-        max_length=255,
-    )
-
     fav_course = None
     notification_frecuency = None
 
@@ -189,6 +184,12 @@ class Provider(CommonClient):
         related_name="providers",
         verbose_name=_("Business"),
     )
+
+    services = models.CharField(
+        _("services"),
+        max_length=255,
+    )
+
 
     class Meta:
         app_label = "business"
