@@ -118,9 +118,11 @@ class Employee(CommonClient):
 
 class ProviderRepresentant(CommonClient):
 
-    first_name = models.CharField(
-        _("first name"),
-        max_length=255,
+    user = models.ForeignKey(
+        "user.User",
+        on_delete=models.CASCADE,
+        related_name="provider_representant",
+        verbose_name=_("User"),
     )
 
     local_phone = PhoneNumberField(
@@ -128,17 +130,8 @@ class ProviderRepresentant(CommonClient):
         blank=True,
     )
 
-    personal_email = models.EmailField(
-        _("notification frecuency"),
-    )
-
     business_email = models.EmailField(
         _("business_email"),
-    )
-
-    charge = models.CharField(
-        _("charge"),
-        max_length=255,
     )
 
     fav_course = None

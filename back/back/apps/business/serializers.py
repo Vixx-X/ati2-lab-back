@@ -85,10 +85,16 @@ class EmployeeSerializer(GenericSerializer):
 class ProviderRepresentantSerializer(GenericSerializer):
     addresses = AddressSerializer(many=True)
     socials = SocialSerializer(many=True, required=False)
+    user = UserEmployeeSerializer()
 
     def create(self, validated_data):
         socials = validated_data.pop("socials")
         addresses = validated_data.pop("addresses")
+
+        user_data = validated_data.pop("user", {})
+        self.user = UserEmployeeSerializer()
+        user = self.user.create(validated_data=user_data)
+        validated_data["user"] = user
 
         client = ProviderRepresentant.objects.create(**validated_data)
 
@@ -111,12 +117,9 @@ class ProviderRepresentantSerializer(GenericSerializer):
             "addresses",
             "socials",
             "phone_number",
-            "first_name",
-            "last_name",
             "local_phone",
-            "personal_email",
             "business_email",
-            "charge",
+            "user",
         ]
 
 
