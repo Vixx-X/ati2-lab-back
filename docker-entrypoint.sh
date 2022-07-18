@@ -6,7 +6,7 @@ if [ "$1" = 'back' ]; then
 	echo "Apply database migrations"
 	python manage.py migrate
 
-	echo "from django.contrib.auth.models import User; users=User.objects; users.filter(username='admin').exists() or users.create_superuser('admin','admin@dev.com','abcd1234$')" | python manage.py shell
+	echo "from back.apps.user.models import User; users=User.objects; users.filter(username='admin').exists() or users.create_superuser('admin','admin@dev.com','abcd1234$')" | python manage.py shell
 
 	# populate fixtures folder if exits
 	if [ -d "fixtures" ]; then
