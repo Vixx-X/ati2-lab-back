@@ -98,7 +98,10 @@ class Employee(CommonClient):
         related_name="employees",
     )
 
-    local_phone_number = PhoneNumberField(_("local phone number"), blank=True)
+    local_phone_number = PhoneNumberField(
+        _("local phone number"),
+        blank=True,
+    )
 
     fav_course = None
     notification_frecuency = None
@@ -121,8 +124,8 @@ class ProviderRepresentant(CommonClient):
     )
 
     local_phone = PhoneNumberField(
-        _("phone number"), 
-        blank=True
+        _("local phone number"), 
+        blank=True,
     )
 
     personal_email = models.EmailField(
@@ -177,7 +180,9 @@ class Provider(CommonClient):
     )
 
     business = models.ManyToManyField(
-        "business.Business", related_name="providers", verbose_name=_("Business")
+        "business.Business",
+        related_name="providers",
+        verbose_name=_("Business"),
     )
 
     class Meta:
