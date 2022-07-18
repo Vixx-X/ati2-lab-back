@@ -3,7 +3,7 @@ FROM python:3
 ENV PYTHONUNBUFFERED=1
 WORKDIR /code
 
-COPY translations /translations
+COPY fixtures /code/fixtures
 COPY requirements /code/requirements
 COPY back /code/
 

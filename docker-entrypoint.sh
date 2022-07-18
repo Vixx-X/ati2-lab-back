@@ -6,9 +6,16 @@ if [ "$1" = 'back' ]; then
 	echo "Apply database migrations"
 	python manage.py migrate
 
+	echo "from django.contrib.auth.models import User; users=User.objects; users.filter(username='admin').exists() or users.create_superuser('admin','admin@dev.com','abcd1234$')" | python manage.py shell
+
+	# populate fixtures folder if exits
+	if [ -d "fixtures" ]; then
+	    python manage.py loaddata fixtures/* || : # silence errors
+	fi
+
 	# Start server
 	echo "Starting server"
-	gunicorn project.wsgi:application --bind 0.0.0.0:8000 --timeout 300
+	python manage.py runserver 0.0.0.0:8000
 fi
 
 exec "$@"
