@@ -11,7 +11,10 @@ from django.contrib.contenttypes.models import ContentType
 
 class CommonClient(models.Model):
 
-    phone_number = PhoneNumberField(_("phone number"), blank=True)
+    phone_number = PhoneNumberField(
+        _("phone number"),
+        blank=True,
+    )
 
     fav_course = models.CharField(
         _("favorite course"),

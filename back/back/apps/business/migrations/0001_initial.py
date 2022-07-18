@@ -13,89 +13,211 @@ class Migration(migrations.Migration):
 
     dependencies = [
         migrations.swappable_dependency(settings.AUTH_USER_MODEL),
-        ('client', '0003_alter_address_options_and_more'),
+        ("client", "0003_alter_address_options_and_more"),
     ]
 
     operations = [
         migrations.CreateModel(
-            name='CommonBusiness',
+            name="CommonBusiness",
             fields=[
-                ('id', models.BigAutoField(auto_created=True, primary_key=True, serialize=False, verbose_name='ID')),
-                ('name', models.CharField(max_length=255, verbose_name='name')),
-                ('email', models.EmailField(max_length=254, verbose_name='email')),
-                ('tax_id', models.CharField(max_length=255, verbose_name='tax id')),
-                ('website', models.URLField(max_length=255, verbose_name='website')),
+                (
+                    "id",
+                    models.BigAutoField(
+                        auto_created=True,
+                        primary_key=True,
+                        serialize=False,
+                        verbose_name="ID",
+                    ),
+                ),
+                ("name", models.CharField(max_length=255, verbose_name="name")),
+                ("email", models.EmailField(max_length=254, verbose_name="email")),
+                ("tax_id", models.CharField(max_length=255, verbose_name="tax id")),
+                ("website", models.URLField(max_length=255, verbose_name="website")),
             ],
             options={
-                'verbose_name': 'business',
-                'verbose_name_plural': 'businesses',
-                'db_table': 'common_business_data',
+                "verbose_name": "business",
+                "verbose_name_plural": "businesses",
+                "db_table": "common_business_data",
             },
         ),
         migrations.CreateModel(
-            name='ProviderRepresentant',
+            name="ProviderRepresentant",
             fields=[
-                ('commonclient_ptr', models.OneToOneField(auto_created=True, on_delete=django.db.models.deletion.CASCADE, parent_link=True, primary_key=True, serialize=False, to='client.commonclient')),
-                ('first_name', models.CharField(max_length=255, verbose_name='first name')),
-                ('local_phone', phonenumber_field.modelfields.PhoneNumberField(blank=True, max_length=128, region=None, verbose_name='phone number')),
-                ('personal_email', models.EmailField(max_length=254, verbose_name='notification frecuency')),
-                ('business_email', models.EmailField(max_length=254, verbose_name='business_email')),
-                ('charge', models.CharField(max_length=255, verbose_name='charge')),
+                (
+                    "commonclient_ptr",
+                    models.OneToOneField(
+                        auto_created=True,
+                        on_delete=django.db.models.deletion.CASCADE,
+                        parent_link=True,
+                        primary_key=True,
+                        serialize=False,
+                        to="client.commonclient",
+                    ),
+                ),
+                (
+                    "first_name",
+                    models.CharField(max_length=255, verbose_name="first name"),
+                ),
+                (
+                    "local_phone",
+                    phonenumber_field.modelfields.PhoneNumberField(
+                        blank=True,
+                        max_length=128,
+                        region=None,
+                        verbose_name="phone number",
+                    ),
+                ),
+                (
+                    "personal_email",
+                    models.EmailField(
+                        max_length=254, verbose_name="notification frecuency"
+                    ),
+                ),
+                (
+                    "business_email",
+                    models.EmailField(max_length=254, verbose_name="business_email"),
+                ),
+                ("charge", models.CharField(max_length=255, verbose_name="charge")),
             ],
             options={
-                'verbose_name': 'provider_representant',
-                'verbose_name_plural': 'provider_representants',
-                'db_table': 'provider_representant',
+                "verbose_name": "provider_representant",
+                "verbose_name_plural": "provider_representants",
+                "db_table": "provider_representant",
             },
-            bases=('client.commonclient',),
+            bases=("client.commonclient",),
         ),
         migrations.CreateModel(
-            name='Business',
+            name="Business",
             fields=[
-                ('commonbusiness_ptr', models.OneToOneField(auto_created=True, on_delete=django.db.models.deletion.CASCADE, parent_link=True, primary_key=True, serialize=False, to='business.commonbusiness')),
-                ('services', models.CharField(max_length=255, verbose_name='services')),
+                (
+                    "commonbusiness_ptr",
+                    models.OneToOneField(
+                        auto_created=True,
+                        on_delete=django.db.models.deletion.CASCADE,
+                        parent_link=True,
+                        primary_key=True,
+                        serialize=False,
+                        to="business.commonbusiness",
+                    ),
+                ),
+                ("services", models.CharField(max_length=255, verbose_name="services")),
             ],
             options={
-                'verbose_name': 'business',
-                'verbose_name_plural': 'businesses',
-                'db_table': 'businesses',
+                "verbose_name": "business",
+                "verbose_name_plural": "businesses",
+                "db_table": "businesses",
             },
-            bases=('business.commonbusiness',),
+            bases=("business.commonbusiness",),
         ),
         migrations.CreateModel(
-            name='Employee',
+            name="Employee",
             fields=[
-                ('commonclient_ptr', models.OneToOneField(auto_created=True, on_delete=django.db.models.deletion.CASCADE, parent_link=True, primary_key=True, serialize=False, to='client.commonclient')),
-                ('document_id', models.CharField(max_length=15, validators=[django.core.validators.RegexValidator(message='your document id is not well formatted', regex='^[eEvVjJ]\\d+$')], verbose_name='document id (cedula/rif)')),
-                ('contract_modality', models.CharField(max_length=255, verbose_name='contract modality')),
-                ('business_email', models.EmailField(max_length=254, verbose_name='business_email')),
-                ('local_phone_number', phonenumber_field.modelfields.PhoneNumberField(blank=True, max_length=128, region=None, verbose_name='local phone number')),
-                ('business', models.ForeignKey(on_delete=django.db.models.deletion.CASCADE, related_name='employees', to='business.commonbusiness', verbose_name='Business')),
-                ('user', models.ForeignKey(on_delete=django.db.models.deletion.CASCADE, related_name='employee', to=settings.AUTH_USER_MODEL, verbose_name='User')),
+                (
+                    "commonclient_ptr",
+                    models.OneToOneField(
+                        auto_created=True,
+                        on_delete=django.db.models.deletion.CASCADE,
+                        parent_link=True,
+                        primary_key=True,
+                        serialize=False,
+                        to="client.commonclient",
+                    ),
+                ),
+                (
+                    "document_id",
+                    models.CharField(
+                        max_length=15,
+                        validators=[
+                            django.core.validators.RegexValidator(
+                                message="your document id is not well formatted",
+                                regex="^[eEvVjJ]\\d+$",
+                            )
+                        ],
+                        verbose_name="document id (cedula/rif)",
+                    ),
+                ),
+                (
+                    "contract_modality",
+                    models.CharField(max_length=255, verbose_name="contract modality"),
+                ),
+                (
+                    "business_email",
+                    models.EmailField(max_length=254, verbose_name="business_email"),
+                ),
+                (
+                    "local_phone_number",
+                    phonenumber_field.modelfields.PhoneNumberField(
+                        blank=True,
+                        max_length=128,
+                        region=None,
+                        verbose_name="local phone number",
+                    ),
+                ),
+                (
+                    "business",
+                    models.ForeignKey(
+                        on_delete=django.db.models.deletion.CASCADE,
+                        related_name="employees",
+                        to="business.commonbusiness",
+                        verbose_name="Business",
+                    ),
+                ),
+                (
+                    "user",
+                    models.ForeignKey(
+                        on_delete=django.db.models.deletion.CASCADE,
+                        related_name="employee",
+                        to=settings.AUTH_USER_MODEL,
+                        verbose_name="User",
+                    ),
+                ),
             ],
             options={
-                'verbose_name': 'employee',
-                'verbose_name_plural': 'employees',
-                'db_table': 'employees',
+                "verbose_name": "employee",
+                "verbose_name_plural": "employees",
+                "db_table": "employees",
             },
-            bases=('client.commonclient',),
+            bases=("client.commonclient",),
         ),
         migrations.CreateModel(
-            name='Provider',
+            name="Provider",
             fields=[
-                ('commonclient_ptr', models.OneToOneField(auto_created=True, on_delete=django.db.models.deletion.CASCADE, parent_link=True, primary_key=True, serialize=False, to='client.commonclient')),
-                ('name', models.CharField(max_length=255, verbose_name='name')),
-                ('email', models.EmailField(max_length=254, verbose_name='email')),
-                ('tax_id', models.CharField(max_length=255, verbose_name='tax id')),
-                ('website', models.URLField(max_length=255, verbose_name='website')),
-                ('representant', models.OneToOneField(on_delete=django.db.models.deletion.CASCADE, to='business.providerrepresentant')),
-                ('business', models.ManyToManyField(related_name='providers', to='business.Business', verbose_name='Business')),
+                (
+                    "commonclient_ptr",
+                    models.OneToOneField(
+                        auto_created=True,
+                        on_delete=django.db.models.deletion.CASCADE,
+                        parent_link=True,
+                        primary_key=True,
+                        serialize=False,
+                        to="client.commonclient",
+                    ),
+                ),
+                ("name", models.CharField(max_length=255, verbose_name="name")),
+                ("email", models.EmailField(max_length=254, verbose_name="email")),
+                ("tax_id", models.CharField(max_length=255, verbose_name="tax id")),
+                ("website", models.URLField(max_length=255, verbose_name="website")),
+                (
+                    "representant",
+                    models.OneToOneField(
+                        on_delete=django.db.models.deletion.CASCADE,
+                        to="business.providerrepresentant",
+                    ),
+                ),
+                (
+                    "business",
+                    models.ManyToManyField(
+                        related_name="providers",
+                        to="business.Business",
+                        verbose_name="Business",
+                    ),
+                ),
             ],
             options={
-                'verbose_name': 'provider',
-                'verbose_name_plural': 'providers',
-                'db_table': 'providers',
+                "verbose_name": "provider",
+                "verbose_name_plural": "providers",
+                "db_table": "providers",
             },
-            bases=('client.commonclient',),
+            bases=("client.commonclient",),
         ),
     ]

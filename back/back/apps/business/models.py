@@ -124,7 +124,7 @@ class ProviderRepresentant(CommonClient):
     )
 
     local_phone = PhoneNumberField(
-        _("local phone number"), 
+        _("local phone number"),
         blank=True,
     )
 

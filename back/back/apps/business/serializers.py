@@ -67,7 +67,7 @@ class EmployeeSerializer(GenericSerializer):
         user = self.user.create(validated_data=user_data)
         validated_data["user"] = user
 
-        employee =  Employee.objects.create(**validated_data)
+        employee = Employee.objects.create(**validated_data)
 
         for social in socials:
             social["client"] = employee
@@ -138,7 +138,7 @@ class ProviderSerializer(GenericSerializer):
             "website",
             "business",
         ]
-    
+
     def __init__(self, instance=None, data=..., **kwargs):
         super().__init__(instance, data, **kwargs)
         self.fields["business"].required = False
