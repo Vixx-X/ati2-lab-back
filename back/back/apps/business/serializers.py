@@ -127,6 +127,7 @@ class ProviderSerializer(GenericSerializer):
     representant = ProviderRepresentantSerializer()
     addresses = AddressSerializer(many=True)
     socials = SocialSerializer(many=True, required=False)
+    business = serializers.PrimaryKeyRelatedField(queryset=Business.objects.all(), many=True, required=False)
 
     class Meta:
         model = Provider
@@ -143,10 +144,6 @@ class ProviderSerializer(GenericSerializer):
             "business",
             "services",
         ]
-
-    def __init__(self, instance=None, data=..., **kwargs):
-        super().__init__(instance, data, **kwargs)
-        self.fields["business"].required = False
 
     def create(self, validated_data):
         socials = validated_data.pop("socials")
